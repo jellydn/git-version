@@ -5,14 +5,12 @@ require "semantic_version"
 module GitVersion
   extend self
 
-  BASE_VERSION_STRING = "0.0.0"
-  BASE_VERSION        = SemanticVersion.parse(BASE_VERSION_STRING)
-
   DEV_BRANCH_SUFFIX = "SNAPSHOT"
 
   class Git
     def initialize(@dev_branch : String, @release_branch : String, @minor_identifier : String, @major_identifier : String,
-                   @folder = FileUtils.pwd, @prefix : String = "", @log_paths : String = "")
+                   @folder = FileUtils.pwd, @prefix : String = "", @log_paths : String = "", @base_version_string = "0.0.0")
+      @base_version = SemanticVersion.parse(@base_version_string)
       @major_id_is_regex = false
       @minor_id_is_regex = false
       if match = /\/(.*)\//.match(@major_identifier)
@@ -48,6 +46,10 @@ module GitVersion
       end
 
       return strout.to_s.split('\n', remove_empty: true)
+    end
+
+    def base_version
+      return @base_version
     end
 
     def dev_branch
@@ -98,12 +100,12 @@ module GitVersion
       return [] of String
     end
 
-    def get_previous_tag_and_version: Tuple(String | Nil, SemanticVersion)
+    def get_previous_tag_and_version : Tuple(String | Nil, SemanticVersion)
       cb = current_branch_or_tag
 
       branch_tags = tags_by_branch(cb)
 
-      previous_version = BASE_VERSION
+      previous_version = base_version
       previous_tag = nil
 
       branch_tags.each do |tag|
@@ -126,7 +128,7 @@ module GitVersion
       return {previous_tag, previous_version}
     end
 
-    def get_previous_version: String
+    def get_previous_version : String
       lt, lv = get_previous_tag_and_version
       return lt ? lt : add_prefix(lv.to_s)
     end
@@ -147,10 +149,10 @@ module GitVersion
       get_commits_since(previous_tag).each do |c|
         commit = c.downcase
         match = if @major_id_is_regex
-          /#{@major_identifier}/.match(commit)
-        else
-          commit.includes?(@major_identifier)
-        end
+                  /#{@major_identifier}/.match(commit)
+                else
+                  commit.includes?(@major_identifier)
+                end
         if match
           previous_version =
             SemanticVersion.new(
@@ -169,10 +171,10 @@ module GitVersion
         get_commits_since(previous_tag).each do |c|
           commit = c.downcase
           match = if @minor_id_is_regex
-            /#{@minor_identifier}/.match(commit)
-          else
-            commit.includes?(@minor_identifier)
-          end
+                    /#{@minor_identifier}/.match(commit)
+                  else
+                    commit.includes?(@minor_identifier)
+                  end
           if match
             previous_version =
               SemanticVersion.new(
