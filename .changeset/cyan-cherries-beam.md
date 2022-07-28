@@ -1,5 +1,5 @@
 ---
-"@fake-scope/fake-pkg": patch
+"@dunghd/git-version": minor
 ---
 
 feat: add base version
