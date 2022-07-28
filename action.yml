@@ -1,43 +1,47 @@
 name: Git Version
-author: "Codacy"
-description: 'Semver versioning based on the git history and commit messages of your repository.'
+author: "Dung Huynh Duc"
+description: "Semver versioning based on the git history and commit messages of your repository."
 branding:
-  icon: 'git-branch'
-  color: 'gray-dark'
+  icon: "git-branch"
+  color: "gray-dark"
 inputs:
   tool-version:
-    description: 'The version of the tool to be ran'
+    description: "The version of the tool to be ran"
     required: true
     default: latest
   release-branch:
-    description: 'The name of the release branch'
+    description: "The name of the release branch"
     required: true
     default: master
   dev-branch:
-    description: 'The name of the dev branch'
+    description: "The name of the dev branch"
     required: true
     default: dev
   minor-identifier:
-    description: 'The string or regex to identify a minor release commit'
+    description: "The string or regex to identify a minor release commit"
     required: true
-    default: 'feature:'
+    default: "feature:"
   major-identifier:
-    description: 'The string or regex to identify a major release commit'
+    description: "The string or regex to identify a major release commit"
     required: true
-    default: 'breaking:'
+    default: "breaking:"
   prefix:
-    description: 'The prefix to use in the version'
+    description: "The prefix to use in the version"
     required: false
+  base-version:
+    description: "The base version"
+    required: false
+    default: "0.0.0"
   log-paths:
-    description: 'The paths to be used to calculate changes (comma-separated)'
+    description: "The paths to be used to calculate changes (comma-separated)"
     required: false
     default: ./
 outputs:
   version:
-    description: 'The value of the new pre-calculated tag'
+    description: "The value of the new pre-calculated tag"
     value: ${{ steps.version.outputs.version }}
   previous-version:
-    description: 'Contains the value of previous tag, before calculating a new one'
+    description: "Contains the value of previous tag, before calculating a new one"
     value: ${{ steps.previous-version.outputs.previous-version }}
 runs:
   using: "composite"
@@ -47,7 +51,7 @@ runs:
       run: |
         set -e
 
-        export PREVIOUS_VERSION=$(docker run -v $(pwd):/repo codacy/git-version:${{ inputs.tool-version }} \
+        export PREVIOUS_VERSION=$(docker run -v $(pwd):/repo dunghd/git-version:${{ inputs.tool-version }} \
           /bin/git-version \
             --previous-version \
             --folder /repo \
@@ -55,7 +59,8 @@ runs:
             --dev-branch "${{ inputs.dev-branch }}" \
             --minor-identifier="${{ inputs.minor-identifier }}" \
             --major-identifier="${{ inputs.major-identifier }}" \
-            --version-prefix "${{ inputs.prefix }}")
+            --version-prefix "${{ inputs.prefix }}") \
+            --base-version "${{ inputs.base-version }}")
 
         echo "::set-output name=previous-version::$PREVIOUS_VERSION"
         echo "Previous Version: $PREVIOUS_VERSION"
@@ -64,14 +69,15 @@ runs:
       run: |
         set -e
 
-        export VERSION=$(docker run -v $(pwd):/repo codacy/git-version:${{ inputs.tool-version }} \
+        export VERSION=$(docker run -v $(pwd):/repo dunghd/git-version:${{ inputs.tool-version }} \
           /bin/git-version \
             --folder /repo \
             --release-branch "${{ inputs.release-branch }}" \
             --dev-branch "${{ inputs.dev-branch }}" \
             --minor-identifier="${{ inputs.minor-identifier }}" \
             --major-identifier="${{ inputs.major-identifier }}" \
-            --version-prefix "${{ inputs.prefix }}")
+            --version-prefix "${{ inputs.prefix }}") \
+            --base-version "${{ inputs.base-version }}")
 
         echo "::set-output name=version::$VERSION"
         echo "New Version: $VERSION"

@@ -1,4 +1,4 @@
-FROM codacy/ci-base:2.0.0 AS builder
+FROM codacy/ci-base AS builder
 
 RUN apk add --update --no-cache --force-overwrite \
     openssl openssl-dev crystal shards g++ gc-dev \
@@ -6,7 +6,7 @@ RUN apk add --update --no-cache --force-overwrite \
     llvm-static make pcre-dev readline-dev \
     yaml-dev zlib-dev git
 
-RUN  git config --global user.email "team@codacy.com" && git config --global user.name "Codacy"
+RUN  git config --global user.email "dung@productsway.com" && git config --global user.name "Dung Huynh Duc"
 
 RUN mkdir -p /workspace
 
@@ -19,9 +19,9 @@ RUN make test build
 
 
 
-FROM codacy/ci-base:2.0.0
+FROM codacy/ci-base
 
-LABEL maintainer="team@codacy.com"
+LABEL maintainer="dung@productsway.com"
 
 RUN apk add --update --no-cache --force-overwrite gc-dev pcre-dev libevent-dev git
 
