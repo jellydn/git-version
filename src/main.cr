@@ -10,11 +10,12 @@ release_branch = "master"
 minor_identifier = "feature:"
 major_identifier = "breaking:"
 prefix = ""
+base_version = "0.0.0"
 log_paths = ""
 
 folder = FileUtils.pwd
 
-OptionParser.parse! do |parser|
+OptionParser.parse do |parser|
   parser.banner = "Usage: git-version [arguments]"
   parser.on("-f FOLDER", "--folder=FOLDER", "Execute the command in the defined folder") { |f| folder = f }
   parser.on("-b BRANCH", "--dev-branch=BRANCH", "Specifies the development branch") { |branch| dev_branch = branch }
@@ -24,8 +25,9 @@ OptionParser.parse! do |parser|
   parser.on("--major-identifier=IDENTIFIER",
     "Specifies the string or regex to identify a major release commit with") { |identifier| major_identifier = identifier }
   parser.on("-p PREFIX", "--version-prefix=PREFIX", "Specifies a version prefix") { |p| prefix = p }
+  parser.on("-v BASE_VERSION", "--base-version=BASE_VERSION", "Specifies a base version") { |v| base_version = v }
   parser.on("-l PATH", "--log-paths=PATH", "") { |path| log_paths = path }
-  parser.on("--previous-version", "Returns the previous tag instead of calculating a new one") { previous_version=true }
+  parser.on("--previous-version", "Returns the previous tag instead of calculating a new one") { previous_version = true }
   parser.on("-h", "--help", "Show this help") { puts parser }
   parser.invalid_option do |flag|
     STDERR.puts "ERROR: #{flag} is not a valid option."
@@ -34,7 +36,7 @@ OptionParser.parse! do |parser|
   end
 end
 
-git = GitVersion::Git.new(dev_branch, release_branch, minor_identifier, major_identifier, folder, prefix, log_paths)
+git = GitVersion::Git.new(dev_branch, release_branch, minor_identifier, major_identifier, folder, prefix, log_paths, base_version)
 
 if previous_version
   puts "#{git.get_previous_version}"

@@ -749,7 +749,6 @@ it "get previous version - first commit" do
     tmp.exec %(git checkout -b master)
     tmp.exec %(git commit --no-gpg-sign --allow-empty -m "1")
 
-
     # git-version should accept the breaking tag on commit with dir2
     version = git.get_previous_version
     version.should eq("0.0.0")

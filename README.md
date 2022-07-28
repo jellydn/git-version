@@ -1,12 +1,12 @@
 # git-version
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c811f6b557ee4e44ad373084015ba0b3)](https://www.codacy.com/gh/codacy/git-version?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=codacy/git-version&amp;utm_campaign=Badge_Grade)
-[![CircleCI](https://circleci.com/gh/codacy/git-version.svg?style=svg)](https://circleci.com/gh/codacy/git-version)
-[![](https://images.microbadger.com/badges/version/codacy/git-version.svg)](https://microbadger.com/images/codacy/git-version "Get your own version badge on microbadger.com")
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c811f6b557ee4e44ad373084015ba0b3)](https://www.codacy.com/gh/dunghd/git-version?utm_source=github.com&utm_medium=referral&utm_content=dunghd/git-version&utm_campaign=Badge_Grade)
+[![CircleCI](https://circleci.com/gh/dunghd/git-version.svg?style=svg)](https://circleci.com/gh/dunghd/git-version)
+[![](https://images.microbadger.com/badges/version/dunghd/git-version.svg)](https://microbadger.com/images/dunghd/git-version "Get your own version badge on microbadger.com")
 
 The goal of this tool is to have a simple versioning system that we can use to track the different releases. The tool prints the current version (e.g. to be used for tagging) depending on the git history and commit messages.
 
-The versioning scheme is assumed to be __Semver__ based.
+The versioning scheme is assumed to be **Semver** based.
 
 ## Usage
 
@@ -26,11 +26,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}   # checkout the correct branch name
-          fetch-depth: 0                # fetch the whole repo history
+          ref: ${{ github.head_ref }} # checkout the correct branch name
+          fetch-depth: 0 # fetch the whole repo history
 
       - name: Git Version
-        uses: codacy/git-version@2.5.4
+        uses: dunghd/git-version@2.5.5
 ```
 
 ### Mono-Repo
@@ -41,7 +41,7 @@ different modules.
 
 Assuming the following directory structure, we can use git-version to generate
 version with prefix `module1-x.x.x` for changes in the `module1/` directory
-and  `module2-x.x.x` for changes in the `module2/` directory.
+and `module2-x.x.x` for changes in the `module2/` directory.
 
 ```sh
 .
@@ -82,14 +82,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}   # checkout the correct branch name
-          fetch-depth: 0                # fetch the whole repo history
+          ref: ${{ github.head_ref }} # checkout the correct branch name
+          fetch-depth: 0 # fetch the whole repo history
 
       - name: Git Version
-        uses: codacy/git-version@2.5.4
+        uses: dunghd/git-version@2.5.5
         with:
           prefix: module1-
-          log-path: module1/
+          log-paths: module1/
 ```
 
 ```yaml
@@ -115,14 +115,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}   # checkout the correct branch name
-          fetch-depth: 0                # fetch the whole repo history
+          ref: ${{ github.head_ref }} # checkout the correct branch name
+          fetch-depth: 0 # fetch the whole repo history
 
       - name: Git Version
-        uses: codacy/git-version@2.5.4
+        uses: dunghd/git-version@2.5.5
         with:
           prefix: module2-
-          log-path: module2/
+          log-paths: module2/
 ```
 
 ## Versioning Model
@@ -130,6 +130,7 @@ jobs:
 Creates a version with the format `MAJOR.MINOR.PATCH`
 
 _To use this you need to be in the working dir of a git project:_
+
 ```
 $ ./git-version
 1.0.0
@@ -146,6 +147,7 @@ On the development branch the format is the following:
 `{MAJOR}.{MINOR}.{PATCH}-SNAPSHOT.{hash}`
 
 _Example:_
+
 ```
 ---A---B---C <= Master (tag: 1.0.1)        L <= Master (git-version: 1.0.2)
             \                             /
@@ -153,6 +155,7 @@ _Example:_
 ```
 
 _Example2 (with dev branch):_
+
 ```
 ---A---B---C <= Master (tag: 1.0.1)        L <= Master (git-version: 1.0.2)
             \                             / <= Fast-forward merges to master (same commit id)
@@ -162,6 +165,7 @@ _Example2 (with dev branch):_
 ```
 
 _Example3 (with breaking message):_
+
 ```
 ---A---B---C <= Master (tag: 1.0.1)        L <= Master (git-version: 2.0.0)
             \                             /
@@ -175,7 +179,7 @@ _Example3 (with breaking message):_
 You can configure the action with various inputs, a list of which has been provided below:
 
 | Name             | Description                                                                                     | Default Value |
-|------------------|-------------------------------------------------------------------------------------------------|---------------|
+| ---------------- | ----------------------------------------------------------------------------------------------- | ------------- |
 | tool-version     | The version of the tool to run                                                                  | latest        |
 | release-branch   | The name of the master/main branch                                                              | master        |
 | dev-branch       | The name of the development branch                                                              | dev           |
@@ -189,6 +193,7 @@ You can configure the action with various inputs, a list of which has been provi
 To use this tool you will need to install a few dependencies:
 
 Ubuntu:
+
 ```
 sudo apt-get install \
   libevent-dev \
@@ -196,6 +201,7 @@ sudo apt-get install \
 ```
 
 Fedora:
+
 ```
 sudo dnf -y install \
   libevent-devel \
@@ -203,6 +209,7 @@ sudo dnf -y install \
 ```
 
 Alpine:
+
 ```
 apk add --update --no-cache --force-overwrite \
   gc-dev pcre-dev libevent-dev \
@@ -210,12 +217,12 @@ apk add --update --no-cache --force-overwrite \
 ```
 
 OsX:
+
 ```
 brew install \
   libevent \
   git
 ```
-
 
 ## CircleCI
 
@@ -232,7 +239,7 @@ jobs:
       - run:
           name: get new version
           command: |
-            NEW_VERSION=$(docker run --rm -v $(pwd):/repo codacy/git-version)
+            NEW_VERSION=$(docker run --rm -v $(pwd):/repo dunghd/git-version)
             echo $NEW_VERSION
 ```
 
@@ -245,6 +252,7 @@ To compile locally you need to install [crystal](https://crystal-lang.org/instal
 You can also run everything locally using the makefile.
 
 To get the list of available commands:
+
 ```
 $ make help
 ```
