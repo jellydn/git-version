@@ -1,8 +1,8 @@
 # git-version
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c811f6b557ee4e44ad373084015ba0b3)](https://www.codacy.com/gh/dunghd/git-version?utm_source=github.com&utm_medium=referral&utm_content=dunghd/git-version&utm_campaign=Badge_Grade)
-[![CircleCI](https://circleci.com/gh/dunghd/git-version.svg?style=svg)](https://circleci.com/gh/dunghd/git-version)
-[![](https://images.microbadger.com/badges/version/dunghd/git-version.svg)](https://microbadger.com/images/dunghd/git-version "Get your own version badge on microbadger.com")
+![Version](https://img.shields.io/badge/version-2.5.5-blue.svg?cacheSeconds=2592000)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
+[![Twitter: jellydn](https://img.shields.io/twitter/follow/jellydn.svg?style=social)](https://twitter.com/jellydn)
 
 The goal of this tool is to have a simple versioning system that we can use to track the different releases. The tool prints the current version (e.g. to be used for tagging) depending on the git history and commit messages.
 
@@ -186,6 +186,7 @@ You can configure the action with various inputs, a list of which has been provi
 | minor-identifier | The string used to identify a minor release (wrap with '/' to match using a regular expression) | feature:      |
 | major-identifier | The string used to identify a major release (wrap with '/' to match using a regular expression) | breaking:     |
 | prefix           | The prefix used for the version name                                                            |               |
+| base-version     | The bas version name                                                                            | 0.0.0         |
 | log-paths        | The paths used to calculate changes (comma-separated)                                           |               |
 
 ## Requirements
@@ -259,28 +260,22 @@ $ make help
 
 ## Credits
 
-Great inspiration for this tool has been taken from: [GitVersion](https://github.com/GitTools/GitVersion)
+This is a fork of: [GitVersion](https://github.com/codacy/git-version)
 
-## What is Codacy
+## Author
 
-[Codacy](https://www.codacy.com/) is an Automated Code Review Tool that monitors your technical debt, helps you improve your code quality, teaches best practices to your developers, and helps you save time in Code Reviews.
+👤 **Dung Huynh**
 
-### Among Codacy’s features
+- Website: https://productsway.com/
+- Twitter: [@jellydn](https://twitter.com/jellydn)
+- Github: [@jellydn](https://github.com/jellydn)
 
-- Identify new Static Analysis issues
-- Commit and Pull Request Analysis with GitHub, BitBucket/Stash, GitLab (and also direct git repositories)
-- Auto-comments on Commits and Pull Requests
-- Integrations with Slack, HipChat, Jira, YouTrack
-- Track issues in Code Style, Security, Error Proneness, Performance, Unused Code and other categories
+## Stargazers 🌟
 
-Codacy also helps keep track of Code Coverage, Code Duplication, and Code Complexity.
+[![Stargazers repo roster for jellydn/git-version](https://reporoster.com/stars/jellydn/git-version)](https://github.com/jellydn/git-version/stargazers)
 
-Codacy supports PHP, Python, Ruby, Java, JavaScript, and Scala, among others.
+## Show your support
 
-## Free for Open Source
+Give a ⭐️ if this project helped you!
 
-Codacy is free for Open Source projects.
-
-## License
-
-git-version is available under the MIT license. See the LICENSE file for more info.
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Q5Q61Q7YM)
