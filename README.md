@@ -30,7 +30,7 @@ jobs:
           fetch-depth: 0 # fetch the whole repo history
 
       - name: Git Version
-        uses: dunghd/git-version@2.5.5
+        uses: dunghd/git-version@v2.5.5
 ```
 
 ### Mono-Repo
@@ -86,7 +86,7 @@ jobs:
           fetch-depth: 0 # fetch the whole repo history
 
       - name: Git Version
-        uses: dunghd/git-version@2.5.5
+        uses: dunghd/git-version@v2.5.5
         with:
           prefix: module1-
           log-paths: module1/
@@ -119,7 +119,7 @@ jobs:
           fetch-depth: 0 # fetch the whole repo history
 
       - name: Git Version
-        uses: dunghd/git-version@2.5.5
+        uses: dunghd/git-version@v2.5.5
         with:
           prefix: module2-
           log-paths: module2/
