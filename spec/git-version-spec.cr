@@ -793,3 +793,20 @@ it "get previous version - pre-tagged" do
     tmp.cleanup
   end
 end
+
+it "set version base on previous version" do
+  tmp = InTmp.new
+
+  begin
+    git = GitVersion::Git.new("dev", "master", "feature:", "breaking:", tmp.@tmpdir, "v", "", "1.2.3")
+
+    tmp.exec %(git init)
+    tmp.exec %(git checkout -b master)
+    tmp.exec %(git commit --no-gpg-sign --allow-empty -m "1")
+
+    version = git.get_new_version
+    version.should eq("v1.2.4")
+  ensure
+    tmp.cleanup
+  end
+end
