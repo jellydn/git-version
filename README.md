@@ -1,6 +1,6 @@
 # git-version
 
-![Version](https://img.shields.io/badge/version-2.5.5-blue.svg?cacheSeconds=2592000)
+![Version](https://img.shields.io/badge/version-2.5.6-blue.svg?cacheSeconds=2592000)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 [![Twitter: jellydn](https://img.shields.io/twitter/follow/jellydn.svg?style=social)](https://twitter.com/jellydn)
 
@@ -30,7 +30,7 @@ jobs:
           fetch-depth: 0 # fetch the whole repo history
 
       - name: Git Version
-        uses: dunghd/git-version@v2.5.5
+        uses: jellydn/git-version@v2.5.6
 ```
 
 ### Mono-Repo
@@ -86,7 +86,7 @@ jobs:
           fetch-depth: 0 # fetch the whole repo history
 
       - name: Git Version
-        uses: dunghd/git-version@v2.5.5
+        uses: jellydn/git-version@v2.5.6
         with:
           prefix: module1-
           log-paths: module1/
@@ -119,7 +119,7 @@ jobs:
           fetch-depth: 0 # fetch the whole repo history
 
       - name: Git Version
-        uses: dunghd/git-version@v2.5.5
+        uses: jellydn/git-version@v2.5.6
         with:
           prefix: module2-
           log-paths: module2/
