@@ -1,0 +1,10 @@
+name: simple-git-version
+version: 0.1.0
+
+authors:
+  - Dung Huynh Duc <dung@productsway.com>
+
+description: |
+  Simple git versioning based on the git
+
+license: MIT

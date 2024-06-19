@@ -2,21 +2,22 @@ name: Crystal CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     container:
       image: crystallang/crystal
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Install dependencies
-      run: shards install
-    - name: Run tests
-      run: crystal spec
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: shards install
+      - name: Setup git config for tests
+        run: git config --global user.email "dung@produtsway.com" && git config --global user.name "Dung Huynh Duc"
+      - name: Run tests
+        run: crystal spec spec/*.cr
