@@ -186,7 +186,7 @@ You can configure the action with various inputs, a list of which has been provi
 | minor-identifier | The string used to identify a minor release (wrap with '/' to match using a regular expression) | feature:      |
 | major-identifier | The string used to identify a major release (wrap with '/' to match using a regular expression) | breaking:     |
 | prefix           | The prefix used for the version name                                                            |               |
-| base-version     | The bas version name                                                                            | 0.0.0         |
+| base-version     | The base version name                                                                           | 0.0.0         |
 | log-paths        | The paths used to calculate changes (comma-separated)                                           |               |
 
 ## Requirements
@@ -269,10 +269,6 @@ This is a fork of: [GitVersion](https://github.com/codacy/git-version)
 - Website: https://productsway.com/
 - Twitter: [@jellydn](https://twitter.com/jellydn)
 - Github: [@jellydn](https://github.com/jellydn)
-
-## Stargazers 🌟
-
-[![Stargazers repo roster for jellydn/git-version](https://reporoster.com/stars/jellydn/git-version)](https://github.com/jellydn/git-version/stargazers)
 
 ## Show your support
 
